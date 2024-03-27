@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -17,6 +18,8 @@ int insere_esquerda(no* no_atual, int valor);
 int insere_direita(no* no, int valor);
 void incializa(arvore* arv);
 void printar_pre_ordem(no* raiz);
+void printar_pos_ordem(no* raiz);
+void printar_in_ordem(no* raiz);
 int contagem_de_nivel(no* raiz);
 int buscar(no*raiz, int valor);
 
@@ -52,7 +55,14 @@ int main(){
         case 2:
             printf("------------\n");
             printf("Conteudo da arvore:\n");
-            printar(arv.raiz);
+            printf("Pre-Ordem: ");
+            printar_pre_ordem(arv.raiz);
+            printf("\n");
+            printf("Pos-Ordem: ");
+            printar_pos_ordem(arv.raiz);
+            printf("\n");
+            printf("In-Ordem: ");
+            printar_in_ordem(arv.raiz);
             printf("\n");
             printf("%d Iten/s\n", cont);
             printf("------------");
@@ -159,16 +169,25 @@ int insere_direita(no* no_atual, int valor){
 void printar_pre_ordem(no* raiz){
     if(raiz!=NULL){
         printf("%d ", raiz->conteudo);
-        printar(raiz->esq);
-        printar(raiz->dir);
+        printar_pre_ordem(raiz->esq);
+        printar_pre_ordem(raiz->dir);
     }
 }
 
 void printar_pos_ordem(no* raiz){
     if(raiz!=NULL){
+        printar_pos_ordem(raiz->dir);
+        printar_pos_ordem(raiz->esq);
         printf("%d ", raiz->conteudo);
-        printar(raiz->dir);
-        printar(raiz->esq);
+    }
+}
+
+
+void printar_in_ordem(no* raiz){
+    if(raiz!=NULL){
+        printar_pos_ordem(raiz->esq);
+        printf("%d ", raiz->conteudo);
+        printar_pos_ordem(raiz->dir);
     }
 }
 
